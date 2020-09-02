@@ -11,6 +11,7 @@ RUN apt-get update \
     libxslt1-dev \
     libzip-dev \
     sqlite3 \
+    unzip \
   && docker-php-ext-install -j$(nproc) \
     bcmath \
     bz2 \
