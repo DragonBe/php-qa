@@ -5,10 +5,12 @@ RUN apt-get update \
     libbz2-dev \
     libicu-dev \
     libpng-dev \
+    libsqlite3-dev \
     libtidy-dev \
     libxml2-dev \
     libxslt1-dev \
     libzip-dev \
+    sqlite3 \
   && docker-php-ext-install -j$(nproc) \
     bcmath \
     bz2 \
@@ -17,9 +19,11 @@ RUN apt-get update \
     gd \
     gettext \
     intl \
+    mysqli \
     opcache \
     pcntl \
     pdo_mysql \
+    pdo_sqlite \
     soap \
     tidy \
     xmlrpc \
@@ -30,3 +34,6 @@ RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
 RUN curl -sSL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN apt-get auto-remove -y \
+  && apt-get clean
