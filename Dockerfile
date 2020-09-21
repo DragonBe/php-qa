@@ -1,7 +1,8 @@
-FROM php:7.4-cli
+FROM php:8.0-rc-cli
 
 RUN apt-get update \
   && apt-get install -y \
+    git \
     libbz2-dev \
     libicu-dev \
     libpng-dev \
@@ -27,12 +28,23 @@ RUN apt-get update \
     pdo_sqlite \
     soap \
     tidy \
-    xmlrpc \
     xsl \
     zip
 
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
+#RUN mkdir -p /usr/src/php/ext/xdebug \
+#  && curl -fsSL https://pecl.php.net/get/xdebug | tar xvz -C "/usr/src/php/ext/xdebug" --strip 1 \
+#  && docker-php-ext-install xdebug 
+
+RUN git -C /tmp clone https://github.com/xdebug/xdebug.git \
+  && ( \
+    cd /tmp/xdebug \
+    && phpize \
+    && ./configure --enable-xdebug \
+    && make -j "$(nproc)" \
+    && make install \
+  ) \
+  && rm -r /tmp/xdebug \
+  && docker-php-ext-enable xdebug
 
 RUN curl -sSL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
