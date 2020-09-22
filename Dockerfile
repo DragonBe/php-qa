@@ -26,6 +26,7 @@ RUN apt-get update \
     pdo_mysql \
     pdo_sqlite \
     soap \
+    sockets \
     tidy \
     xmlrpc \
     xsl \
