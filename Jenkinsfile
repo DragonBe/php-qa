@@ -4,6 +4,10 @@ pipeline {
         label 'docker-master'
     }
 
+    options {
+        skipDefaultCheckout()
+    }
+
     parameters {
         choice(
             name: 'PHP_VER',
