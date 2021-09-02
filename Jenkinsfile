@@ -7,7 +7,7 @@ pipeline {
     parameters {
         choice(
             name: 'PHP_VER',
-            choices: ['7.3', '7.4', '8.0'],
+            choices: ['7.3', '7.4', '8.0', '8.1'],
             description: 'Select PHP version to build'
         )
     }
